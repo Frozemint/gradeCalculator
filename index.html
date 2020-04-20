@@ -2,48 +2,61 @@
 
 <html>
 <head> 
-	<title>Calculator</title>
+  <title>Calculator</title>
 </head>
 <script>
-	function test(){
-		var mt1Grade = document.getElementById("mt1").value;
-		var mt2Grade = document.getElementById("mt2").value;
-		var ass1grade = document.getElementById("ass1").value;
-		var ass2grade = document.getElementById("ass2").value;
-		var ass3grade = document.getElementById("ass3").value;
-		var ass4grade = document.getElementById("ass4").value;
-		var ass5grade = document.getElementById("ass5").value;
-		var ass6grade = document.getElementById("ass6").value;
-		var tutGrade = document.getElementById("tut").value;
-		var tutWeighted = (tutGrade / 11) * 0.07;
-		var mtWeighted = ((mt1Grade * 0.01 + mt2Grade * 0.01) / 2 ) * 0.46;
-		var assignmentWeighted = ((ass1grade * 0.01 + ass2grade * 0.01 + ass3grade * 0.01 + ass4grade * 0.01 + ass5grade * 0.01 + ass6grade * 0.01) / 6 ) * 0.42;
-		var finalGrade = ((mtWeighted + assignmentWeighted + tutWeighted) * 100).toFixed(1);
-		document.getElementById("grade").innerHTML = finalGrade;
-	}
+  function test(){
+    var mt1Grade = document.getElementById("mt1").value / 100;
+    var mt2Grade = document.getElementById("mt2").value / 12;
+    var ass1grade = document.getElementById("ass1").value / 30;
+    var ass2grade = document.getElementById("ass2").value / 42;
+    var ass3grade = document.getElementById("ass3").value / 33;
+    var ass4grade = document.getElementById("ass4").value / 48;
+    var ass5grade = document.getElementById("ass5").value / 15;
+    var ass6grade = document.getElementById("ass6").value / 49;
+    var finalExam = document.getElementById("finalExam").value / 100;  // a 'what-if' grade for the final. 0 if you skip.
+    var tutGrade = document.getElementById("tut").value / 11;
+
+    var mtGrade = ((mt1Grade + mt2Grade) / 2 )
+    var assGrade = ((ass1grade + ass2grade + ass3grade + ass4grade + ass5grade + ass6grade) / 6 )
+
+    var scheme1 = finalExam*0.30 + mtGrade*0.33 + assGrade*0.30 + tutGrade*0.07
+    var scheme2 = finalExam*0.05 + mtGrade*0.46 + assGrade*0.42 + tutGrade*0.07
+
+    document.getElementById("mtGrade").innerHTML = (mtGrade * 100).toFixed(2);
+    document.getElementById("assGrade").innerHTML = (assGrade * 100).toFixed(2);
+    document.getElementById("tutGrade").innerHTML = (tutGrade * 100).toFixed(2);
+    document.getElementById("finalExamGrade").innerHTML = (finalExam*100).toFixed(2);
+    document.getElementById("grade").innerHTML = ((Math.max(scheme1, scheme2)) * 100).toFixed(2);
+  }
 </script>
 <body>
 <form action="" id="formInput" onsubmit="return false;">
-  <label for="fname">MT1 Grade:</label><br>
-  <input type="text" id="mt1" name="fname" value="0" onkeyup="test();"><br>
-  <label for="lname">MT2 Grade:</label><br>
+  <label for="fname">MT1 Grade (out of 100):</label>
+  <input type="text" id="mt1" name="fname" value="0" onkeyup="test();"><br><br>
+  <label for="lname">MT2 Grade (out of 12):</label>
   <input type="text" id="mt2" name="lname" value="0" onkeyup="test();"><br><br>
-  <label for="lname">Assignment 1 Grade:</label><br>
+  <label for="lname">Assignment 1 Grade (out of 30):</label>
   <input type="text" id="ass1" name="lname" value="0" onkeyup="test();"><br><br>
-  <label for="lname">Assignment 2 Grade:</label><br>
+  <label for="lname">Assignment 2 Grade (out of 42):</label>
   <input type="text" id="ass2" name="lname" value="0" onkeyup="test();"><br><br>
-  <label for="lname">Assignment 3 Grade:</label><br>
+  <label for="lname">Assignment 3 Grade (out of 33):</label>
   <input type="text" id="ass3" name="lname" value="0" onkeyup="test();"><br><br>
-  <label for="lname">Assignment 4 Grade:</label><br>
+  <label for="lname">Assignment 4 Grade (out of 48):</label>
   <input type="text" id="ass4" name="lname" value="0" onkeyup="test();"><br><br>
-  <label for="lname">Assignment 5 Grade:</label><br>
+  <label for="lname">Assignment 5 Grade (out of 15):</label>
   <input type="text" id="ass5" name="lname" value="0" onkeyup="test();"><br><br>
-  <label for="lname">Assignment 6 Grade:</label><br>
+  <label for="lname">Assignment 6 Grade (out of 49):</label>
   <input type="text" id="ass6" name="lname" value="0" onkeyup="test();"><br><br>
-  <label for="lname">Tutorial participation out of 11:</label><br>
+  <label for="lname">Tutorial participation (out of 11):</label>
   <input type="text" id="tut" name="lname" value="0" onkeyup="test();"><br><br>
-  <input type="submit" value="Submit">
+  <label for="lname">Final Exam 'what-if' grade (out of 100). Put 0 if you plan to skip:</label>
+  <input type="text" id="finalExam" name="lname" value="0" onkeyup="test();"><br><br>
 </form> 
 </body>
-<p>Final grade: <span id="grade"> </span> % </p>
+<p>Midterms: <span id="mtGrade"> </span> % </p>
+<p>Assignments: <span id="assGrade"> </span> % </p>
+<p>Tutorials: <span id="tutGrade"> </span> % </p>
+<p>Final Exam: <span id="finalExamGrade"> </span> % </p>
+<p><strong>Final grade: <span id="grade"> </span> % </strong></p>
 </html>
